@@ -5,14 +5,25 @@
 //   accounts: Account[];
 // }
 
-// interface Account {
-//   id: string;
-//   balance: number;
-//   creditLimit: number;
-//   type: "black" | "white" | "platinum" | "iron" | "fop" | "yellow";
-//   currencyCode: number;
-//   cashbackType: "None" | "UAH" | "Miles";
-// }
+export interface UserInfo {
+  clientId: string;
+  name: string;
+  webHookUrl: string;
+  permissions: string;
+  accounts: Account[];
+}
+
+export interface Account {
+  id: string;
+  balance: number;
+  creditLimit: number;
+  type: "black" | "white" | "platinum" | "iron" | "fop" | "yellow";
+  currencyCode: number;
+  cashbackType: "None" | "UAH" | "Miles";
+  sendId: string;
+  maskedPan: string[];
+  iban: string;
+}
 
 // interface StatementItem {
 //   id: string;
@@ -77,23 +88,6 @@
 //   | "trips"
 //   | "others";
 
-interface TransactionsExcerpt {
-  /* from 0 to 11 */
-  month: number;
-  year: number;
-  transactions: Transaction[];
-}
-
-interface Transaction {
-  id: string;
-  time: number;
-  description: string;
-  amount: number;
-  comment: string;
-  /*  (Merchant Category Code) according to ISO 18245 */
-  mcc: number;
-}
-
 export type AccountType =
   | "black"
   | "white"
@@ -101,10 +95,3 @@ export type AccountType =
   | "iron"
   | "fop"
   | "yellow";
-
-interface Account {
-  id: string;
-  balance: number;
-  type: AccountType;
-  currencyCode: number;
-}

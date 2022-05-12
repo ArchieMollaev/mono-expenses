@@ -6,7 +6,7 @@ const logo = require("../assets/images/mastercard.png");
 
 interface CreditCardProps {
   type: AccountType;
-  amount: number;
+  amount: number | string;
   currency: string;
   cardNumber: string;
   cardName: string;
@@ -28,10 +28,30 @@ function getCardColor(type: AccountType): ColorType {
   if (type === "yellow") {
     return "yellow.300";
   }
-  return "dark.100";
+  return "gray.300";
+}
+
+function getCardTextColor(type: AccountType): ColorType {
+  if (type === "black") {
+    return "white";
+  }
+  if (type === "white") {
+    return "black";
+  }
+  if (type === "platinum") {
+    return "white";
+  }
+  if (type === "iron") {
+    return "white";
+  }
+  if (type === "yellow") {
+    return "black";
+  }
+  return "black";
 }
 
 const CreditCard: React.FC<CreditCardProps> = (props) => {
+  const textColor = getCardTextColor(props.type);
   return (
     <Container
       width={300}
@@ -41,21 +61,21 @@ const CreditCard: React.FC<CreditCardProps> = (props) => {
       p="5%"
     >
       <Flex direction="row" justify={"flex-end"} mb={3}>
-        <Text mb="3" fontWeight="medium" color={"white"}>
-          {props.amount.toFixed(2)}
+        <Text mb="3" fontWeight="medium" color={textColor}>
+          {props.amount}
         </Text>
         <Spacer />
-        <Text mb="3" fontWeight="medium" color={"white"}>
+        <Text mb="3" fontWeight="medium" color={textColor}>
           {props.currency}
         </Text>
       </Flex>
 
-      <Text mb="3" fontWeight="medium" color={"white"} fontSize="xl">
+      <Text mb="3" fontWeight="medium" color={textColor} fontSize="xl">
         {props.cardNumber}
       </Text>
       <Spacer />
       <Flex direction="row" align={"center"}>
-        <Text fontWeight="medium" fontSize={"sm"} color={"white"}>
+        <Text fontWeight="medium" fontSize={"sm"} color={textColor}>
           {props.cardName.toUpperCase()}
         </Text>
         <Spacer />
